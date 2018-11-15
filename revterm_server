@@ -1,0 +1,14 @@
+#!/bin/bash
+
+DEFAULT_HOST=localhost
+DEFAULT_PORT=13337
+
+HOST=${REVTERM_HOST:-$DEFAULT_HOST}
+PORT=${REVTERM_PORT:-$DEFAULT_PORT}
+
+while true; do
+    echo "Listening on [${HOST}]:${PORT}..."
+    socat file:`tty`,raw,echo=0 "tcp-l:${PORT},bind=${HOST}" || exit
+    echo 'Connection closed.'
+    echo '--------------------------------------------------'
+done

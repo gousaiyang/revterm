@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DEFAULT_HOST=0.0.0.0
+DEFAULT_PORT=1234
+
+HOST=${REVCONN_HOST:-$DEFAULT_HOST}
+PORT=${REVCONN_PORT:-$DEFAULT_PORT}
+
+while true; do
+    nc -vv -l "${HOST}" -p "${PORT}" || exit
+    echo 'Connection closed.'
+    echo '--------------------------------------------------'
+done
