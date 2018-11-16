@@ -7,7 +7,7 @@ HOST=${REVCONN_HOST:-$DEFAULT_HOST}
 PORT=${REVCONN_PORT:-$DEFAULT_PORT}
 
 while true; do
-    nc -vv -l "${HOST}" -p "${PORT}" || exit
-    echo 'Connection closed.'
+    socat -d -d - "tcp-l:${PORT},bind=${HOST},reuseaddr" \
+        2> >(`which egrep` --color=never 'listening|accepting|EOF|exiting') || exit
     echo '--------------------------------------------------'
 done

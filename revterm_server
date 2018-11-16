@@ -8,7 +8,7 @@ PORT=${REVTERM_PORT:-$DEFAULT_PORT}
 
 while true; do
     echo "Listening on [${HOST}]:${PORT}..."
-    socat file:`tty`,raw,echo=0 "tcp-l:${PORT},bind=${HOST}" || exit
+    socat file:`tty`,raw,echo=0 "tcp-l:${PORT},bind=${HOST},reuseaddr" || exit
     echo 'Connection closed.'
     echo '--------------------------------------------------'
 done
